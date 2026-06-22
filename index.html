@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agustín Giordano | Arquitectura</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Custom styles to complement Tailwind */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Very light gray background */
+            color: #334155; /* Slate text */
+        }
+
+        /* Hero Section Overlay */
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 100%);
+        }
+
+        /* Navbar transitions */
+        #navbar {
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .nav-scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-link {
+            position: relative;
+            text-decoration: none;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: white; /* Default underline color (for dark hero) */
+            transition: width 0.3s ease;
+        }
+
+        .nav-scrolled .nav-link::after {
+            background-color: #334155; /* Underline color when scrolled */
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Project Cards */
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            light: '#e2e8f0',
+                            DEFAULT: '#94a3b8',
+                            dark: '#475569',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 top-0 transition-colors duration-300 bg-transparent text-white py-4 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            
+            <!-- Logo -->
+            <a href="#" class="flex flex-col">
+                <span class="text-2xl md:text-3xl font-light tracking-widest uppercase">AG<span class="font-semibold text-sm align-top ml-1 opacity-80">ARQ</span></span>
+                <span class="text-xs tracking-widest hidden md:block opacity-80">Agustín Giordano</span>
+            </a>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center text-sm font-medium tracking-wide">
+                <a href="#home" class="nav-link active">HOME</a>
+                
+                <!-- Dropdown (Simulated) -->
+                <div class="relative group cursor-pointer">
+                    <a href="#proyectos" class="nav-link flex items-center">
+                        PROYECTOS <i class="fas fa-chevron-down ml-1 text-[10px]"></i>
+                    </a>
+                    <!-- Dropdown Content -->
+                    <div class="absolute left-0 mt-2 w-48 bg-white text-slate-800 shadow-lg rounded-md overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                        <a href="#" class="block px-4 py-2 hover:bg-slate-100">Residencial</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-slate-100">Comercial</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-slate-100">Urbanismo</a>
+                    </div>
+                </div>
+
+                <a href="#estudio" class="nav-link">ESTUDIO</a>
+                <a href="#contacto" class="nav-link">CONTACTO</a>
+                
+                <!-- Language Toggle -->
+                <div class="ml-4 pl-4 border-l border-white/30 flex space-x-2 text-xs">
+                    <span class="font-bold">ES</span>
+                    <span class="opacity-50">|</span>
+                    <a href="#" class="opacity-70 hover:opacity-100 transition-opacity">EN</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white text-slate-800 shadow-md flex-col">
+            <a href="#home" class="block px-6 py-4 border-b border-gray-100 hover:bg-gray-50">HOME</a>
+            <a href="#proyectos" class="block px-6 py-4 border-b border-gray-100 hover:bg-gray-50">PROYECTOS</a>
+            <a href="#estudio" class="block px-6 py-4 border-b border-gray-100 hover:bg-gray-50">ESTUDIO</a>
+            <a href="#contacto" class="block px-6 py-4 hover:bg-gray-50">CONTACTO</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="relative h-screen min-h-[600px] w-full bg-slate-900 overflow-hidden">
+        <!-- Using a placeholder image that resembles a modern architectural render -->
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2075&q=80" 
+             alt="Arquitectura Moderna" 
+             class="absolute inset-0 w-full h-full object-cover object-center" />
+        
+        <div class="absolute inset-0 hero-overlay"></div>
+        
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+            <!-- Optional text over hero, often left empty in architectural sites to show the image -->
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce text-sm opacity-80 cursor-pointer" onclick="document.getElementById('proyectos').scrollIntoView();">
+            <p class="mb-2 tracking-widest text-xs">DESCUBRIR</p>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </header>
+
+    <!-- Proyectos Section -->
+    <section id="proyectos" class="py-20 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-light tracking-wide text-slate-800 mb-4">PROYECTOS DESTACADOS</h2>
+            <div class="w-16 h-0.5 bg-slate-800 mx-auto"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Project 1 -->
+            <div class="project-card relative group overflow-hidden rounded-lg shadow-sm cursor-pointer h-80">
+                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Casa en las sierras" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="project-overlay absolute inset-0 bg-slate-900/60 opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <h3 class="text-white text-xl font-medium mb-1">Casa Sierras</h3>
+                    <p class="text-white/80 text-sm">Residencial | Córdoba</p>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card relative group overflow-hidden rounded-lg shadow-sm cursor-pointer h-80">
+                <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Edificio corporativo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="project-overlay absolute inset-0 bg-slate-900/60 opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <h3 class="text-white text-xl font-medium mb-1">Centro Empresarial Sur</h3>
+                    <p class="text-white/80 text-sm">Comercial | Carlos Paz</p>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card relative group overflow-hidden rounded-lg shadow-sm cursor-pointer h-80">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Interiorismo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="project-overlay absolute inset-0 bg-slate-900/60 opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <h3 class="text-white text-xl font-medium mb-1">Loft Nva Córdoba</h3>
+                    <p class="text-white/80 text-sm">Interiorismo | Córdoba</p>
+                </div>
+            </div>
+            
+             <!-- Project 4 -->
+            <div class="project-card relative group overflow-hidden rounded-lg shadow-sm cursor-pointer h-80">
+                <img src="https://images.unsplash.com/photo-1448630360428-65456885c650?ixlib=rb-4.0.3&auto=format&fit=crop&w=1167&q=80" alt="Casa de campo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="project-overlay absolute inset-0 bg-slate-900/60 opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <h3 class="text-white text-xl font-medium mb-1">Refugio del Lago</h3>
+                    <p class="text-white/80 text-sm">Residencial | Potrero de Garay</p>
+                </div>
+            </div>
+
+            <!-- Project 5 -->
+            <div class="project-card relative group overflow-hidden rounded-lg shadow-sm cursor-pointer h-80 md:col-span-2 lg:col-span-2">
+                 <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Complejo urbano" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="project-overlay absolute inset-0 bg-slate-900/60 opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <h3 class="text-white text-xl font-medium mb-1">Complejo Urbania</h3>
+                    <p class="text-white/80 text-sm">Desarrollo Urbano | Córdoba Capital</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-12">
+            <a href="#" class="inline-block border border-slate-800 text-slate-800 px-8 py-3 uppercase tracking-wider text-sm hover:bg-slate-800 hover:text-white transition-colors duration-300">Ver Todos los Proyectos</a>
+        </div>
+    </section>
+
+    <!-- Estudio Section -->
+    <section id="estudio" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/2">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1169&q=80" alt="Estudio de arquitectura" class="rounded-lg shadow-md w-full h-[500px] object-cover grayscale hover:grayscale-0 transition-all duration-500">
+            </div>
+            <div class="md:w-1/2">
+                <h2 class="text-3xl font-light tracking-wide text-slate-800 mb-6">EL ESTUDIO</h2>
+                <div class="w-16 h-0.5 bg-slate-800 mb-8"></div>
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    En Agustín Giordano Arquitectura, creemos que el diseño no es solo acerca de crear espacios estéticamente agradables, sino de forjar experiencias que mejoren la calidad de vida de las personas.
+                </p>
+                <p class="text-slate-600 mb-8 leading-relaxed">
+                    Nuestro enfoque combina la innovación técnica con una profunda sensibilidad hacia el entorno y las necesidades específicas de cada cliente. Desde residencias privadas hasta complejos comerciales, abordamos cada proyecto con la misma pasión por el detalle y el compromiso con la excelencia.
+                </p>
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="text-4xl font-light text-slate-800 mb-2">15+</h4>
+                        <p class="text-sm text-slate-500 uppercase tracking-wide">Años de experiencia</p>
+                    </div>
+                    <div>
+                        <h4 class="text-4xl font-light text-slate-800 mb-2">80+</h4>
+                        <p class="text-sm text-slate-500 uppercase tracking-wide">Proyectos completados</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto Section -->
+    <section id="contacto" class="py-20 bg-slate-50 px-6 md:px-12">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-light tracking-wide text-slate-800 mb-4">CONTACTO</h2>
+                <div class="w-16 h-0.5 bg-slate-800 mx-auto"></div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm p-8 md:p-12">
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-slate-700 mb-1">Nombre</label>
+                            <input type="text" id="name" class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-slate-800 transition-colors bg-transparent" placeholder="Tu nombre">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-slate-700 mb-1">Email</label>
+                            <input type="email" id="email" class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-slate-800 transition-colors bg-transparent" placeholder="tu@email.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-slate-700 mb-1">Mensaje</label>
+                        <textarea id="message" rows="4" class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-slate-800 transition-colors bg-transparent resize-none" placeholder="Cuéntanos sobre tu proyecto..."></textarea>
+                    </div>
+                    <div class="text-right">
+                        <button type="button" class="bg-slate-800 text-white px-8 py-3 uppercase tracking-wider text-sm hover:bg-slate-700 transition-colors duration-300">
+                            Enviar Mensaje
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-12 px-6 md:px-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <a href="#" class="inline-block mb-4">
+                    <span class="text-2xl font-light tracking-widest uppercase text-white">AG<span class="font-semibold text-sm align-top ml-1 opacity-80">ARQ</span></span>
+                </a>
+                <p class="text-slate-400 text-sm mb-4">Diseño arquitectónico contemporáneo enfocado en la experiencia humana y el respeto por el entorno.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors"><i class="fab fa-behance"></i></a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="text-sm font-semibold tracking-wider uppercase mb-4 text-slate-300">Oficina</h4>
+                <p class="text-slate-400 text-sm mb-2"><i class="fas fa-map-marker-alt w-5 text-center mr-2"></i> Av. Hipólito Yrigoyen 146</p>
+                <p class="text-slate-400 text-sm mb-2 pl-7">Córdoba, Argentina</p>
+                <p class="text-slate-400 text-sm mb-2 mt-4"><i class="fas fa-phone w-5 text-center mr-2"></i> +54 9 351 123 4567</p>
+                <p class="text-slate-400 text-sm"><i class="fas fa-envelope w-5 text-center mr-2"></i> info@agarquitectura.com</p>
+            </div>
+
+            <div>
+                <h4 class="text-sm font-semibold tracking-wider uppercase mb-4 text-slate-300">Enlaces</h4>
+                <ul class="space-y-2 text-sm text-slate-400">
+                    <li><a href="#proyectos" class="hover:text-white transition-colors">Proyectos</a></li>
+                    <li><a href="#estudio" class="hover:text-white transition-colors">El Estudio</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Prensa y Publicaciones</a></li>
+                    <li><a href="#contacto" class="hover:text-white transition-colors">Trabaja con nosotros</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-slate-800 text-center text-slate-500 text-xs">
+            &copy; 2026 Agustín Giordano Arquitectura. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for interactivity
+
+        // 1. Navbar Background Change on Scroll
+        const navbar = document.getElementById('navbar');
+        const logoText = navbar.querySelectorAll('span');
+        const navLinks = navbar.querySelectorAll('.nav-link');
+        const langToggle = navbar.querySelector('.ml-4');
+        const mobileBtnIcon = navbar.querySelector('#mobile-menu-btn i');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                // Scrolled state
+                navbar.classList.add('nav-scrolled');
+                navbar.classList.remove('bg-transparent', 'text-white', 'py-4');
+                navbar.classList.add('text-slate-800', 'py-2');
+                
+                logoText.forEach(span => span.classList.remove('text-white'));
+                
+                // Change border color for language toggle
+                langToggle.classList.remove('border-white/30');
+                langToggle.classList.add('border-slate-800/30');
+
+            } else {
+                // Top state (transparent)
+                navbar.classList.remove('nav-scrolled');
+                navbar.classList.add('bg-transparent', 'text-white', 'py-4');
+                navbar.classList.remove('text-slate-800', 'py-2');
+                
+                // Change border color back for language toggle
+                langToggle.classList.add('border-white/30');
+                langToggle.classList.remove('border-slate-800/30');
+            }
+        });
+
+        // 2. Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            
+            // Toggle icon between bars and times (X)
+            if(mobileMenu.classList.contains('hidden')) {
+                mobileBtnIcon.classList.remove('fa-times');
+                mobileBtnIcon.classList.add('fa-bars');
+            } else {
+                mobileBtnIcon.classList.remove('fa-bars');
+                mobileBtnIcon.classList.add('fa-times');
+                // Ensure navbar gets white background when opening menu at top
+                if (window.scrollY <= 50) {
+                     navbar.classList.add('nav-scrolled', 'text-slate-800');
+                     navbar.classList.remove('bg-transparent', 'text-white');
+                     langToggle.classList.remove('border-white/30');
+                     langToggle.classList.add('border-slate-800/30');
+                }
+            }
+        });
+
+        // Close mobile menu when a link is clicked
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileBtnIcon.classList.remove('fa-times');
+                mobileBtnIcon.classList.add('fa-bars');
+            });
+        });
+
+        // 3. Highlight active section in navbar based on scroll position
+        const sections = document.querySelectorAll('section, header');
+        const desktopNavLinks = document.querySelectorAll('.hidden.md\\:flex .nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            desktopNavLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
